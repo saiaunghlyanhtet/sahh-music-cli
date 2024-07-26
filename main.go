@@ -1,10 +1,10 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -12,7 +12,8 @@ import (
 	"syscall"
 )
 
-const musicFilePath = "assets/nancy.mp3"
+//go:embed assets/nancy.mp3
+var defaultMusic embed.FS
 
 func playMusic(wg *sync.WaitGroup, stopChan chan struct{}, musicPath string) {
 	defer wg.Done()
@@ -22,24 +23,24 @@ func playMusic(wg *sync.WaitGroup, stopChan chan struct{}, musicPath string) {
 	if musicPath != "" {
 		musicFilePath = musicPath
 	} else {
-		tmpFile, err := ioutil.TempFile("", "nancy.mp3")
+		tmpFile, err := os.CreateTemp("", "nancy.mp3")
 		if err != nil {
 			fmt.Println("Failed to create temp file:", err)
 			return
 		}
 		defer os.Remove(tmpFile.Name())
 
-		// Open the music file from the assets directory
-		file, err := os.Open(musicFilePath)
+		// Copy the embedded file to the temp file
+		file, err := defaultMusic.Open("assets/nancy.mp3")
 		if err != nil {
-			fmt.Println("Failed to open music file:", err)
+			fmt.Println("Failed to open embedded music file:", err)
 			return
 		}
 		defer file.Close()
 
 		_, err = io.Copy(tmpFile, file)
 		if err != nil {
-			fmt.Println("Failed to copy music file:", err)
+			fmt.Println("Failed to copy embedded music file:", err)
 			return
 		}
 

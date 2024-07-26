@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	go version
+	mkdir -p $(CURDIR)/.cache/go-build
+	GO111MODULE=on GOCACHE=$(CURDIR)/.cache/go-build go build -o sahh-music-cli main.go
+
+override_dh_auto_install:
+	install -d $(CURDIR)/debian/sahh-music-cli/usr/bin
+	install -m 755 sahh-music-cli $(CURDIR)/debian/sahh-music-cli/usr/bin
+
+clean:
+	dh_clean
+	rm -rf $(CURDIR)/.cache

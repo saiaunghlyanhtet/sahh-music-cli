@@ -1,0 +1,13 @@
+Source: sahh-music-cli
+Section: utils
+Priority: optional
+Maintainer: Sai Aung Hlyan Htet <saiaunghlyanhtet21303@gmail.com>
+Build-Depends: debhelper (>= 11), golang-go
+Standards-Version: 3.9.6
+Homepage:
+
+Package: sahh-music-cli
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, mpg123
+Description: A CLI tool to play music while running commands
+  This tool allows you to play music while running long terminal commands.

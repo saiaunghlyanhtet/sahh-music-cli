@@ -1,0 +1,16 @@
+Format: 1.8
+Date: Thu, 25 Jul 2024 06:54:10 GMT+00:00
+Source: sahh-music-cli
+Binary: sahh-music-cli
+Architecture: source
+Version: 1.0.0-1
+Distribution: unstable
+Urgency: medium
+Maintainer: Sai Aung Hlyan Htet <saiaunghlyanhtet21303@gmail.com>
+Changed-By: Sai Aung Hlyan Htet <saiaunghlyanhtet21303@gmail.com>
+Description: A CLI tool to play music while running commands
+  This tool allows you to play music while running long terminal commands.
+
+Changes: sahh-music-cli (1.0.0-1) unstable; urgency=medium
+  .
+  * Initial release.
